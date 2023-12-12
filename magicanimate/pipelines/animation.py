@@ -227,14 +227,15 @@ def main(args):
                 
             samples_per_video = torch.cat(samples_per_video)
 
+            offset = config.offset
             video_name = os.path.basename(test_video)[:-4]
             source_name = os.path.basename(config.source_image[idx]).split(".")[0]
-            save_videos_grid(samples_per_video[-1:], f"{savedir}/videos/{source_name}_{video_name}.mp4")
-            save_videos_grid(samples_per_video, f"{savedir}/videos/{source_name}_{video_name}/grid.mp4")
+            save_videos_grid(samples_per_video[-1:], f"{savedir}/videos/{source_name}_{video_name}_{offset}.mp4")
+            save_videos_grid(samples_per_video, f"{savedir}/videos/{source_name}_{video_name}_{offset}/grid.mp4")
 
             if config.save_individual_videos:
-                save_videos_grid(samples_per_video[1:2], f"{savedir}/videos/{source_name}_{video_name}/ctrl.mp4")
-                save_videos_grid(samples_per_video[0:1], f"{savedir}/videos/{source_name}_{video_name}/orig.mp4")
+                save_videos_grid(samples_per_video[1:2], f"{savedir}/videos/{source_name}_{video_name}_{offset}/ctrl.mp4")
+                save_videos_grid(samples_per_video[0:1], f"{savedir}/videos/{source_name}_{video_name}_{offset}/orig.mp4")
                 
         if args.dist:
             dist.barrier()
